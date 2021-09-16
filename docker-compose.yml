@@ -1,0 +1,31 @@
+version: "3.4"
+
+networks:
+  whaleandjaguar:
+    external:
+      name: whaleandjaguar.localhost
+
+services:
+  identity-app:
+    container_name: identity-app
+    image: jhonsfran/python-dev:3.7-v2
+    command: uvicorn --reload --host 0.0.0.0 --port $PORT --log-level $LOG_LEVEL "app.main:server"
+    # command: sleep 100000
+    env_file:
+      - .env
+    ports:
+      - "8330:8330"
+      # jupyter notebook
+      - "8889:8888"
+    expose:
+      - 8330
+      - 8889
+    networks:
+      default:
+      whaleandjaguar:
+    volumes:
+      - .:/opt/app
+      - identity_python_dependencies:/opt/app/.venv
+
+volumes:
+  identity_python_dependencies:

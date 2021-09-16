@@ -1,0 +1,1 @@
+from .place import places_view

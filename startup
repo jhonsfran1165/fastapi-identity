@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+# Please Use Google Shell Style: https://google.github.io/styleguide/shell.xml
+
+# ---- Start unofficial bash strict mode boilerplate
+# http://redsymbol.net/articles/unofficial-bash-strict-mode/
+set -o errexit  # always exit on error
+set -o errtrace # trap errors in functions as well
+set -o pipefail # don't ignore exit codes when piping output
+set -o posix    # more strict failures in subshells
+# set -x          # enable debugging
+
+IFS="$(printf "\n\t")"
+# ---- End unofficial bash strict mode boilerplate
+
+echo "You're runnig your app in $ENV mode"
+
+# because we don't want to handle the same scripts multiple time in each
+# repo, we decided to copy common script in this location in the docker base image
+scripts_dir="/opt/scripts"
+
+# ensure database config is valid and ready to work
+python "${scripts_dir}/waitForPostgres.py"
+
+# make migrations
+# alembic upgrade head
+
+# tell python where is the root path of the project
+export PYTHONPATH="${PYTHONPATH}:/app"
+
+# Create initial data in DB
+# python app/initial_data.py

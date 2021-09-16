@@ -1,0 +1,57 @@
+[tool.poetry]
+name = "bigquery-app"
+version = "0.1.0"
+description = "Bigquery MVP for OCEANA"
+authors = ["jhonsfran"]
+
+[tool.poetry.dependencies]
+python = ">=3.7.1,<3.10"
+fastapi = "^0.68.1"
+uvicorn = {extras = ["standard"], version = "^0.15.0"}
+alembic = "^1.7.1"
+emails = "^0.6"
+pandas = "^1.3.2"
+google-cloud-bigquery = "^2.26.0"
+email-validator = "^1.1.3"
+python-multipart = "^0.0.5"
+pyarrow = "^5.0.0"
+loguru = "^0.5.3"
+sqlmodel = "^0.0.4"
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+asyncpg = "^0.24.0"
+psycopg2-binary = "^2.9.1"
+aiosql = "^3.3.1"
+fastapi_permissions = "^0.2.7"
+easy-auth = {extras = ["server"], version = "^0.148"}
+
+[tool.poetry.dev-dependencies]
+gitlint = "^0.15.1"
+autopep8 = "^1.5.7"
+jupyterlab = "^3.1.10"
+flake8-bugbear = "^21.4.3"
+coverage = {extras = ["toml"], version = "^5.5"}
+pytest = "^6.2.5"
+black = "^21.8b0"
+nox = "^2021.6.12"
+isort = "^5.9.3"
+safety = "^1.10.3"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+omit = [".*", "*/site-packages/*"]
+
+[tool.coverage.report]
+fail_under = 100
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+include = '\.pyi?$'
+extend-exclude = '.venv/*'
+
+[tool.isort]
+profile = "black"

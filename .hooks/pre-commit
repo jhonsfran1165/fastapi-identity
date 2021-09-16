@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "jhonsfranbot is checking your code 👀"
+
+# Keep code quality
+container_id=$(docker ps -qf "name=^recommend_app$")
+docker exec $container_id yapf --in-place --recursive $(git ls-files '*.py') && git add .

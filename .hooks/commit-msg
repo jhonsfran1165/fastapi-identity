@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Review each git commit
+container_id=$(docker ps -qf "name=^recommend_app$")
+docker exec $container_id bash -c "cat .git/COMMIT_EDITMSG | gitlint"

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+echo '\n some last tests to send to origin 🚀 \n'
+
+container_id=$(docker ps -qf "name=^recommend_app$")
+docker exec $container_id pylint --rcfile=.pylintrc --output-format=text $(git ls-files '*.py') > pylint.txt
+
+score=$(sed -n 's/^Your code has been rated at \([-0-9.]*\)\/.*/\1/p' pylint.txt)
+echo "Pylint score was $score"
+
+number=${score%.*}
+
+if [ $number -lt 7 ];
+then
+  # Maybe someone can get mad with this, but it's funny
+  echo "You can't push that shit: your score is $score"
+  exit 1
+fi
